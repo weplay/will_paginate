@@ -23,8 +23,8 @@ module WillPaginate
     # default options that can be overridden on the global level
     @@pagination_options = {
       :class          => 'pagination',
-      :previous_label => '&laquo; Previous',
-      :next_label     => 'Next &raquo;',
+      :previous_label => '&laquo; Previous'.html_safe,
+      :next_label     => 'Next &raquo;'.html_safe,
       :inner_window   => 4, # links around the current page
       :outer_window   => 1, # links around beginning and end
       :separator      => ' ', # single space is friendly to spiders and non-graphic browsers
@@ -232,10 +232,7 @@ module WillPaginate
       # previous/next buttons
       links.unshift page_link_or_span(@collection.previous_page, 'disabled prev_page', @options[:previous_label])
       links.push    page_link_or_span(@collection.next_page,     'disabled next_page', @options[:next_label])
-      html = links.join(@options[:separator])
-      if html.respond_to?(:html_safe)
-        html = html.html_safe
-      end
+      html = links.join(@options[:separator]).html_safe
       @options[:container] ? @template.content_tag(:div, html, html_attributes) : html
     end
 
